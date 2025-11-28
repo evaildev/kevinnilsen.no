@@ -1,0 +1,51 @@
+.section {
+    padding: 10rem 2rem;
+    /* Transparent background for cosmos effect */
+    color: var(--foreground);
+}
+
+.heading {
+    font-size: clamp(2rem, 5vw, 4rem);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--secondary-foreground);
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.skill {
+    padding: 0.5rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: border-color 0.3s, color 0.3s, transform 0.3s;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    cursor: default;
+}
+
+@media (max-width: 768px) {
+    .content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}

@@ -1,0 +1,40 @@
+.beamsContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    /* Behind everything */
+    overflow: hidden;
+    background: #000;
+    /* Deep black base */
+    pointer-events: none;
+}
+
+.beam {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center,
+            rgba(121, 40, 202, 0.15) 0%,
+            rgba(0, 112, 243, 0.15) 25%,
+            transparent 60%);
+    transform-origin: center;
+    opacity: 0.6;
+    filter: blur(80px);
+    animation: beam-move var(--duration) ease-in-out infinite alternate;
+    animation-delay: var(--delay);
+}
+
+@keyframes beam-move {
+    0% {
+        transform: translate(-50%, -50%) translate(0, 0) rotate(0deg) scale(1);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) rotate(15deg) scale(1.2);
+    }
+}

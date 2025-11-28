@@ -1,0 +1,36 @@
+.section {
+    padding: 10rem 2rem;
+    background: var(--background);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+}
+
+.heading {
+    font-size: clamp(2rem, 5vw, 4rem);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+.text {
+    font-size: 1.2rem;
+    color: var(--secondary-foreground);
+    margin-bottom: 4rem;
+    max-width: 600px;
+}
+
+.email {
+    font-size: clamp(2rem, 6vw, 5rem);
+    color: var(--accent);
+    font-weight: 700;
+    transition: color 0.3s, text-shadow 0.3s;
+    line-height: 1;
+}
+
+.email:hover {
+    color: #fff;
+    text-shadow: 0 0 30px var(--accent-glow);
+}

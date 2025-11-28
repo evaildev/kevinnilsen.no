@@ -1,0 +1,38 @@
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    mix-blend-mode: difference;
+    color: white;
+    /* Ensure visible with mix-blend-mode on dark bg if needed, but difference usually inverts */
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.05em;
+}
+
+.links {
+    display: flex;
+    gap: 2rem;
+}
+
+.link {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.link:hover {
+    opacity: 1;
+    color: var(--accent);
+}

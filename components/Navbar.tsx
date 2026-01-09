@@ -1,3 +1,4 @@
+'use client'
 import styles from './Navbar.module.css'
 import Link from 'next/link'
 import { motion } from 'framer-motion'

@@ -1,3 +1,4 @@
+'use client'
 import styles from './Hero.module.css'
 import Link from 'next/link'
 import { motion } from 'framer-motion'

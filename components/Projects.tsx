@@ -7,30 +7,24 @@ export default function Projects() {
     const projects = [
         {
             name: 'levpluss.no',
-            description: 'Video learning platform built with TypeScript',
+            description: 'Video learning platform built with TypeScript featuring responsive design and interactive elements.',
             tech: ['TypeScript', 'React', 'Next.js'],
             url: 'https://levpluss.no',
-            icon: 'M15.6 11.6L22 7v10l-6.4-4.5v-1zM4 5h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2z',
-            gradient: 'linear-gradient(135deg, #FF4D4D, #F9CB28)',
-            color: '#FF4D4D'
+            gradient: 'linear-gradient(135deg, #FF4D4D, #F9CB28)'
         },
         {
             name: 'HCQ Haircuts',
-            description: 'Queue management system with Qmatic API integration',
+            description: 'Queue management system with Qmatic API integration for streamlining customer flow and booking management.',
             tech: ['Node.js', 'REST API', 'PostgreSQL'],
             url: null,
-            icon: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
-            gradient: 'linear-gradient(135deg, #00C6FF, #0072FF)',
-            color: '#00C6FF'
+            gradient: 'linear-gradient(135deg, #00C6FF, #0072FF)'
         },
         {
             name: 'TekCom',
-            description: 'B2B e-commerce platform for wholesale distribution',
+            description: 'B2B e-commerce platform for wholesale distribution with streamlined ordering system for retail partners.',
             tech: ['React', 'Node.js', 'Express'],
             url: null,
-            icon: 'M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM20 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6',
-            gradient: 'linear-gradient(135deg, #A855F7, #EC4899)',
-            color: '#A855F7'
+            gradient: 'linear-gradient(135deg, #A855F7, #EC4899)'
         }
     ]
 
@@ -41,86 +35,44 @@ export default function Projects() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.6 }}
             >
-                <h2 className={styles.heading}>
-                    <span className={styles.prompt}>$ ls -la ~/projects/</span>
-                    <br />
-                    <span className={styles.headingText}>Featured Work</span>
-                </h2>
-                <div className={styles.headingUnderline} />
+                <h2 className={styles.heading}>Featured Projects</h2>
+                <p className={styles.subheading}>A selection of recent work</p>
             </motion.div>
 
             <div className={styles.grid}>
                 {projects.map((project, index) => (
                     <motion.div
                         key={project.name}
-                        className={styles.projectWrapper}
+                        className={styles.card}
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
-                        <div className={styles.projectCard}>
-                            {/* Terminal window header */}
-                            <div className={styles.cardHeader}>
-                                <div className={styles.windowControls}>
-                                    <span className={styles.control} style={{ background: '#ff5f56' }}></span>
-                                    <span className={styles.control} style={{ background: '#ffbd2e' }}></span>
-                                    <span className={styles.control} style={{ background: '#27c93f' }}></span>
-                                </div>
-                                <span className={styles.fileName}>{project.name}.project</span>
-                            </div>
+                        <div className={styles.iconWrapper} style={{ background: project.gradient }}></div>
 
-                            {/* Card body */}
-                            <div className={styles.cardBody}>
-                                <div className={styles.iconWrapper}>
-                                    <div className={styles.icon} style={{ background: project.gradient }}>
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                            <path d={project.icon} />
-                                        </svg>
-                                    </div>
-                                </div>
+                        <h3 className={styles.projectName}>{project.name}</h3>
+                        <p className={styles.description}>{project.description}</p>
 
-                                <h3 className={styles.projectName}>
-                                    <span className={styles.bracket}>{'{'}</span>
-                                    {project.name}
-                                    <span className={styles.bracket}>{'}'}</span>
-                                </h3>
-
-                                <p className={styles.description}>
-                                    <span className={styles.comment}>// </span>
-                                    {project.description}
-                                </p>
-
-                                <div className={styles.techStack}>
-                                    <span className={styles.techLabel}>tech_stack:</span>
-                                    <div className={styles.techList}>
-                                        {project.tech.map((tech, i) => (
-                                            <span key={tech} className={styles.tech}>
-                                                "{tech}"{i < project.tech.length - 1 ? ',' : ''}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className={styles.cardFooter}>
-                                    {project.url ? (
-                                        <Link href={project.url} target="_blank" className={styles.link}>
-                                            <span>$ open</span>
-                                            <span className={styles.arrow}>→</span>
-                                        </Link>
-                                    ) : (
-                                        <span className={styles.linkDisabled}>
-                                            # Private Repository
-                                        </span>
-                                    )}
-                                </div>
-
-                                {/* Loading bar effect */}
-                                <div className={styles.loadingBar} style={{ background: project.color }} />
-                            </div>
+                        <div className={styles.techStack}>
+                            {project.tech.map((tech) => (
+                                <span key={tech} className={styles.tech}>
+                                    {tech}
+                                </span>
+                            ))}
                         </div>
+
+                        {project.url ? (
+                            <Link href={project.url} target="_blank" className={styles.link}>
+                                View Project →
+                            </Link>
+                        ) : (
+                            <span className={styles.linkDisabled}>
+                                Private Project
+                            </span>
+                        )}
                     </motion.div>
                 ))}
             </div>

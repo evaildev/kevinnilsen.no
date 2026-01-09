@@ -2,7 +2,6 @@
 import styles from './Navbar.module.css'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import GlitchText from './GlitchText'
 
 export default function Navbar() {
     return (
@@ -14,27 +13,18 @@ export default function Navbar() {
         >
             <div className={styles.container}>
                 <Link href="/" className={styles.logo}>
-                    <span className={styles.bracket}>{'<'}</span>
-                    <GlitchText text="KN" />
-                    <span className={styles.bracket}>{'/>'}</span>
+                    KN
                 </Link>
-
-                <div className={styles.status}>
-                    <div className={styles.statusIndicator}>
-                        <span className={styles.statusDot}></span>
-                        <span className={styles.statusText}>ONLINE</span>
-                    </div>
-                </div>
 
                 <div className={styles.links}>
                     <Link href="#projects" className={styles.link}>
-                        <span className={styles.linkIcon}>#</span>projects
+                        Projects
                     </Link>
                     <Link href="#about" className={styles.link}>
-                        <span className={styles.linkIcon}>#</span>about
+                        About
                     </Link>
                     <Link href="#contact" className={styles.link}>
-                        <span className={styles.linkIcon}>#</span>contact
+                        Contact
                     </Link>
                 </div>
             </div>

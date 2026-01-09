@@ -1,7 +1,6 @@
 import Navbar from './Navbar'
 import Head from 'next/head'
 import SmoothScroll from './SmoothScroll'
-import MatrixRain from './MatrixRain'
 import ParticleField from './ParticleField'
 
 interface LayoutProps {
@@ -17,7 +16,6 @@ export default function Layout({ children }: LayoutProps) {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
             <SmoothScroll />
-            <MatrixRain />
             <ParticleField />
             <Navbar />
             <main>{children}</main>

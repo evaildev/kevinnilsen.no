@@ -5,160 +5,83 @@
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
 .header {
     margin-bottom: 3rem;
+    text-align: center;
 }
 
 .heading {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 3rem;
     font-weight: 700;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, #ffffff, #a1a1aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.prompt {
-    font-size: 1rem;
-    color: var(--accent-cyan);
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-.headingText {
-    color: var(--accent-green);
-    text-shadow:
-        0 0 10px var(--accent-green),
-        0 0 20px var(--accent-green);
-}
-
-.headingUnderline {
-    width: 100px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
-    box-shadow: 0 0 10px var(--accent-green);
+.subheading {
+    font-size: 1.125rem;
+    color: var(--secondary-foreground);
 }
 
 .content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
 }
 
-.bioSection,
-.skillsSection {
-    background: rgba(15, 15, 15, 0.9);
+.bioSection {
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: all 0.3s ease;
+    border-radius: var(--radius);
+    padding: 2rem;
 }
 
-.bioSection:hover,
-.skillsSection:hover {
-    border-color: var(--accent-green);
-    box-shadow:
-        0 0 20px rgba(0, 255, 0, 0.2),
-        0 0 40px rgba(0, 255, 0, 0.1);
-}
-
-.editorHeader {
-    background: rgba(26, 26, 26, 0.8);
-    padding: 0.75rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    border-bottom: 1px solid var(--border);
-}
-
-.windowControls {
-    display: flex;
-    gap: 6px;
-}
-
-.control {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-}
-
-.fileName {
-    font-size: 0.875rem;
+.bio {
+    font-size: 1.125rem;
+    line-height: 1.8;
     color: var(--secondary-foreground);
-    font-family: var(--font-mono);
 }
 
-.editorBody {
-    padding: 1.5rem;
-    font-family: var(--font-mono);
-    font-size: 0.95rem;
+.skillsSection {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
 }
 
-.codeBlock {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-    transition: all 0.2s ease;
-}
-
-.codeBlock:hover {
-    background: rgba(0, 255, 0, 0.05);
-}
-
-.lineNumber {
-    color: var(--secondary-foreground);
-    opacity: 0.5;
-    min-width: 30px;
-    text-align: right;
-    user-select: none;
-}
-
-.codeLine {
-    flex: 1;
+.skillsHeading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
     color: var(--foreground);
 }
 
-.keyword {
-    color: #ff79c6;
-    font-weight: 600;
+.skillsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
 }
 
-.variable {
-    color: #50fa7b;
-}
-
-.property {
-    color: #8be9fd;
-}
-
-.string {
-    color: #f1fa8c;
-}
-
-.bracket {
-    color: var(--accent-cyan);
-}
-
-.skillTag {
-    color: var(--accent-cyan);
-    padding: 2px 6px;
-    background: rgba(0, 255, 255, 0.1);
-    border-radius: 3px;
+.skill {
+    padding: 0.5rem 1rem;
+    background: var(--secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    color: var(--foreground);
     transition: all 0.3s ease;
-    display: inline-block;
 }
 
-.skillTag:hover {
-    background: rgba(0, 255, 255, 0.2);
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-    transform: translateX(4px);
-}
-
-@media (max-width: 968px) {
-    .content {
-        grid-template-columns: 1fr;
-    }
+.skill:hover {
+    border-color: var(--accent-primary);
+    background: var(--surface-hover);
+    transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
@@ -170,12 +93,12 @@
         font-size: 2rem;
     }
 
-    .editorBody {
-        padding: 1rem;
-        font-size: 0.85rem;
+    .bioSection,
+    .skillsSection {
+        padding: 1.5rem;
     }
 
-    .lineNumber {
-        min-width: 25px;
+    .bio {
+        font-size: 1rem;
     }
 }

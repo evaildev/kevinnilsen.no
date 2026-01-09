@@ -23,137 +23,50 @@ export default function About() {
             <div className={styles.container}>
                 <motion.div
                     className={styles.header}
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 0.6 }}
                 >
-                    <h2 className={styles.heading}>
-                        <span className={styles.prompt}>$ cat ~/.profile</span>
-                        <br />
-                        <span className={styles.headingText}>About Developer</span>
-                    </h2>
-                    <div className={styles.headingUnderline} />
+                    <h2 className={styles.heading}>About</h2>
+                    <p className={styles.subheading}>Full Stack Developer passionate about building modern web experiences</p>
                 </motion.div>
 
                 <div className={styles.content}>
-                    {/* Code editor style bio */}
                     <motion.div
                         className={styles.bioSection}
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
                     >
-                        <div className={styles.editorHeader}>
-                            <div className={styles.windowControls}>
-                                <span className={styles.control} style={{ background: '#ff5f56' }}></span>
-                                <span className={styles.control} style={{ background: '#ffbd2e' }}></span>
-                                <span className={styles.control} style={{ background: '#27c93f' }}></span>
-                            </div>
-                            <span className={styles.fileName}>developer.profile.ts</span>
-                        </div>
-
-                        <div className={styles.editorBody}>
-                            <div className={styles.codeBlock}>
-                                <div className={styles.lineNumber}>1</div>
-                                <div className={styles.codeLine}>
-                                    <span className={styles.keyword}>const</span> <span className={styles.variable}>developer</span> = {'{'}
-                                </div>
-                            </div>
-                            <div className={styles.codeBlock}>
-                                <div className={styles.lineNumber}>2</div>
-                                <div className={styles.codeLine}>
-                                    &nbsp;&nbsp;<span className={styles.property}>name:</span> <span className={styles.string}>"Kevin Nilsen"</span>,
-                                </div>
-                            </div>
-                            <div className={styles.codeBlock}>
-                                <div className={styles.lineNumber}>3</div>
-                                <div className={styles.codeLine}>
-                                    &nbsp;&nbsp;<span className={styles.property}>role:</span> <span className={styles.string}>"Full Stack Developer"</span>,
-                                </div>
-                            </div>
-                            <div className={styles.codeBlock}>
-                                <div className={styles.lineNumber}>4</div>
-                                <div className={styles.codeLine}>
-                                    &nbsp;&nbsp;<span className={styles.property}>passion:</span> <span className={styles.string}>"Building modern web experiences"</span>,
-                                </div>
-                            </div>
-                            <div className={styles.codeBlock}>
-                                <div className={styles.lineNumber}>5</div>
-                                <div className={styles.codeLine}>
-                                    &nbsp;&nbsp;<span className={styles.property}>focus:</span> <span className={styles.string}>"Performance & User Experience"</span>
-                                </div>
-                            </div>
-                            <div className={styles.codeBlock}>
-                                <div className={styles.lineNumber}>6</div>
-                                <div className={styles.codeLine}>
-                                    {'}'}
-                                </div>
-                            </div>
-                        </div>
+                        <p className={styles.bio}>
+                            I specialize in creating high-performance web applications with a focus on user experience and modern design.
+                            With expertise across the full stack, I build solutions that are both technically robust and visually appealing.
+                        </p>
                     </motion.div>
 
-                    {/* Skills section */}
                     <motion.div
                         className={styles.skillsSection}
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                        <div className={styles.editorHeader}>
-                            <div className={styles.windowControls}>
-                                <span className={styles.control} style={{ background: '#ff5f56' }}></span>
-                                <span className={styles.control} style={{ background: '#ffbd2e' }}></span>
-                                <span className={styles.control} style={{ background: '#27c93f' }}></span>
-                            </div>
-                            <span className={styles.fileName}>skills.json</span>
-                        </div>
-
-                        <div className={styles.editorBody}>
-                            <div className={styles.codeBlock}>
-                                <div className={styles.lineNumber}>1</div>
-                                <div className={styles.codeLine}>
-                                    <span className={styles.bracket}>{'{'}</span>
-                                </div>
-                            </div>
-                            <div className={styles.codeBlock}>
-                                <div className={styles.lineNumber}>2</div>
-                                <div className={styles.codeLine}>
-                                    &nbsp;&nbsp;<span className={styles.property}>"stack"</span>: [
-                                </div>
-                            </div>
+                        <h3 className={styles.skillsHeading}>Skills & Technologies</h3>
+                        <div className={styles.skillsGrid}>
                             {skills.map((skill, index) => (
-                                <motion.div
+                                <motion.span
                                     key={skill}
-                                    className={styles.codeBlock}
-                                    initial={{ opacity: 0, x: 20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
+                                    className={styles.skill}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
                                     viewport={{ once: true }}
-                                    transition={{ duration: 0.3, delay: 0.4 + (index * 0.05) }}
+                                    transition={{ duration: 0.3, delay: 0.3 + (index * 0.05) }}
                                 >
-                                    <div className={styles.lineNumber}>{index + 3}</div>
-                                    <div className={styles.codeLine}>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <span className={styles.skillTag}>
-                                            "{skill}"{index < skills.length - 1 ? ',' : ''}
-                                        </span>
-                                    </div>
-                                </motion.div>
+                                    {skill}
+                                </motion.span>
                             ))}
-                            <div className={styles.codeBlock}>
-                                <div className={styles.lineNumber}>{skills.length + 3}</div>
-                                <div className={styles.codeLine}>
-                                    &nbsp;&nbsp;]
-                                </div>
-                            </div>
-                            <div className={styles.codeBlock}>
-                                <div className={styles.lineNumber}>{skills.length + 4}</div>
-                                <div className={styles.codeLine}>
-                                    <span className={styles.bracket}>{'}'}</span>
-                                </div>
-                            </div>
                         </div>
                     </motion.div>
                 </div>

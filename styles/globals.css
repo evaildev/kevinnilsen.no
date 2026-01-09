@@ -1,18 +1,17 @@
 :root {
   --background: #0a0a0a;
-  --foreground: #00ff00;
-  --accent-cyan: #00ffff;
-  --accent-green: #00ff00;
-  --accent-purple: #a855f7;
-  --accent-pink: #ec4899;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #888888;
-  --surface: #0f0f0f;
+  --foreground: #ffffff;
+  --accent-primary: #8b5cf6;
+  --accent-secondary: #6366f1;
+  --accent-highlight: #ec4899;
+  --secondary: #151515;
+  --secondary-foreground: #a1a1aa;
+  --muted: #71717a;
+  --surface: #1a1a1a;
   --surface-hover: #1f1f1f;
-  --border: #00ff0044;
-  --border-bright: #00ff00;
-  --radius: 4px;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
+  --border: #27272a;
+  --border-hover: #3f3f46;
+  --radius: 12px;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -28,12 +27,12 @@ body {
   overflow-x: hidden;
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   position: relative;
 }
 
-/* Matrix Grid Background */
+/* Subtle gradient background */
 body::before {
   content: "";
   position: fixed;
@@ -41,86 +40,39 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image:
-    linear-gradient(to right, #00ff0008 1px, transparent 1px),
-    linear-gradient(to bottom, #00ff0008 1px, transparent 1px);
-  background-size: 40px 40px;
+  background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.08), transparent 50%);
   pointer-events: none;
   z-index: 0;
 }
 
-/* Scanline Effect */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 255, 0, 0.03),
-    rgba(0, 255, 0, 0.03) 1px,
-    transparent 1px,
-    transparent 2px
-  );
-  pointer-events: none;
-  z-index: 9999;
-  animation: scanline 8s linear infinite;
-}
-
-@keyframes scanline {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(100%);
-  }
-}
-
-/* Glowing cursor */
-body {
-  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="4" fill="%2300ff00" opacity="0.6"/></svg>') 10 10, auto;
-}
-
 a {
-  color: var(--accent-cyan);
+  color: inherit;
   text-decoration: none;
   transition: all 0.3s ease;
-  position: relative;
-}
-
-a:hover {
-  color: var(--accent-green);
-  text-shadow: 0 0 10px var(--accent-green);
 }
 
 ::selection {
-  background: var(--accent-cyan);
-  color: var(--background);
-  text-shadow: none;
+  background: var(--accent-primary);
+  color: #fff;
 }
 
-/* Scrollbar */
+/* Clean scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
   background: var(--background);
 }
 
 ::-webkit-scrollbar-track {
   background: var(--secondary);
-  border-left: 1px solid var(--border);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-green);
-  border-radius: var(--radius);
-  box-shadow: 0 0 10px var(--accent-green);
+  background: var(--border-hover);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-cyan);
-  box-shadow: 0 0 15px var(--accent-cyan);
+  background: var(--muted);
 }
 
 /* Lenis Recommended Styles */
@@ -145,120 +97,60 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* Neon glow utility */
-.neon-glow {
-  text-shadow: 
-    0 0 5px var(--accent-green),
-    0 0 10px var(--accent-green),
-    0 0 20px var(--accent-green);
+/* Utility classes */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.neon-glow-cyan {
-  text-shadow: 
-    0 0 5px var(--accent-cyan),
-    0 0 10px var(--accent-cyan),
-    0 0 20px var(--accent-cyan);
-}
-
-/* Terminal window controls */
-.terminal-controls {
-  display: flex;
-  gap: 6px;
-  padding: 8px;
-}
-
-.terminal-control {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--secondary-foreground);
-}
-
-.terminal-control.close {
-  background: #ff5f56;
-}
-
-.terminal-control.minimize {
-  background: #ffbd2e;
-}
-
-.terminal-control.maximize {
-  background: #27c93f;
-}
-
-/* Code block styling */
-code {
-  font-family: var(--font-mono);
+.card {
   background: var(--surface);
-  padding: 2px 6px;
-  border-radius: var(--radius);
   border: 1px solid var(--border);
-  color: var(--accent-cyan);
-}
-
-pre {
-  font-family: var(--font-mono);
-  background: var(--surface);
-  padding: 16px;
   border-radius: var(--radius);
-  border: 1px solid var(--border);
-  overflow-x: auto;
+  transition: all 0.3s ease;
 }
 
-/* Glitch animation */
-@keyframes glitch {
-  0% {
-    transform: translate(0);
-  }
-  20% {
-    transform: translate(-2px, 2px);
-  }
-  40% {
-    transform: translate(-2px, -2px);
-  }
-  60% {
-    transform: translate(2px, 2px);
-  }
-  80% {
-    transform: translate(2px, -2px);
-  }
-  100% {
-    transform: translate(0);
-  }
+.card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
-/* Neon border animation */
-@keyframes neon-border {
-  0%, 100% {
-    box-shadow: 
-      0 0 5px var(--accent-green),
-      0 0 10px var(--accent-green),
-      inset 0 0 5px var(--accent-green);
-  }
-  50% {
-    box-shadow: 
-      0 0 10px var(--accent-cyan),
-      0 0 20px var(--accent-cyan),
-      inset 0 0 10px var(--accent-cyan);
-  }
-}
-
-/* Typing cursor */
-@keyframes blink {
-  0%, 50% {
-    opacity: 1;
-  }
-  51%, 100% {
+/* Smooth animations */
+@keyframes fadeIn {
+  from {
     opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.typing-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1.2em;
-  background: var(--accent-green);
-  margin-left: 2px;
-  animation: blink 1s infinite;
-  vertical-align: text-bottom;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

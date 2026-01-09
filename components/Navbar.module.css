@@ -1,22 +1,90 @@
-.nav {
+.navbar {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    padding: 2rem;
+    right: 0;
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    z-index: 100;
-    mix-blend-mode: difference;
-    color: white;
-    /* Ensure visible with mix-blend-mode on dark bg if needed, but difference usually inverts */
+    justify-content: space-between;
+    gap: 2rem;
 }
 
 .logo {
-    font-weight: 700;
+    font-family: var(--font-mono);
     font-size: 1.5rem;
-    letter-spacing: -0.05em;
+    font-weight: 700;
+    color: var(--accent-green);
+    text-shadow: 0 0 10px var(--accent-green);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    text-shadow: 0 0 20px var(--accent-green);
+    transform: scale(1.05);
+}
+
+.bracket {
+    color: var(--accent-cyan);
+    opacity: 0.8;
+}
+
+.status {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.statusIndicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+}
+
+.statusDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    box-shadow: 0 0 10px var(--accent-green);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 10px var(--accent-green);
+    }
+
+    50% {
+        opacity: 0.5;
+        box-shadow: 0 0 5px var(--accent-green);
+    }
+}
+
+.statusText {
+    color: var(--accent-green);
+    font-weight: 600;
 }
 
 .links {
@@ -25,14 +93,43 @@
 }
 
 .link {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    opacity: 0.7;
-    transition: opacity 0.3s;
+    font-family: var(--font-mono);
+    color: var(--secondary-foreground);
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 .link:hover {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 10px var(--accent-cyan);
+}
+
+.linkIcon {
+    color: var(--accent-green);
+    opacity: 0.6;
+}
+
+.link:hover .linkIcon {
     opacity: 1;
-    color: var(--accent);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem 1.5rem;
+    }
+
+    .status {
+        display: none;
+    }
+
+    .links {
+        gap: 1rem;
+    }
+
+    .link {
+        font-size: 0.875rem;
+    }
 }

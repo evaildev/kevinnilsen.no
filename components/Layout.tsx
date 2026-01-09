@@ -1,9 +1,8 @@
 import Navbar from './Navbar'
 import Head from 'next/head'
 import SmoothScroll from './SmoothScroll'
-import ShootingStars from './ShootingStars'
-import BackgroundBeams from './BackgroundBeams'
-import styles from './Layout.module.css'
+import MatrixRain from './MatrixRain'
+import ParticleField from './ParticleField'
 
 interface LayoutProps {
     children: React.ReactNode
@@ -13,14 +12,13 @@ export default function Layout({ children }: LayoutProps) {
     return (
         <>
             <Head>
-                <title>Kevin Nilsen | Portfolio</title>
-                <meta name="description" content="Portfolio of Kevin Nilsen" />
+                <title>Kevin Nilsen | Full Stack Developer</title>
+                <meta name="description" content="Portfolio of Kevin Nilsen - Full Stack Developer specializing in modern web applications" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
             <SmoothScroll />
-            <div className="stars" />
-            <BackgroundBeams />
-            <ShootingStars />
+            <MatrixRain />
+            <ParticleField />
             <Navbar />
             <main>{children}</main>
         </>

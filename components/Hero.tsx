@@ -7,25 +7,42 @@ export default function Hero() {
     return (
         <section className={styles.hero}>
             <div className={styles.content}>
+                <div className={styles.titleWrapper}>
+                    <motion.h1
+                        className={styles.title}
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                    >
+                        Creative
+                        <br />
+                        <span className={styles.gradientText}>Developer</span>
+                    </motion.h1>
+                </div>
+
+                <div className={styles.subtitleWrapper}>
+                    <motion.p
+                        className={styles.subtitle}
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+                    >
+                        Kevin Nilsen — Full Stack Developer building immersive web experiences with modern detail.
+                    </motion.p>
+                </div>
+
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                    className={styles.actions}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 0.6 }}
                 >
-                    <h1 className={styles.title}>
-                        Kevin Nilsen
-                    </h1>
-                    <p className={styles.subtitle}>
-                        Full Stack Developer building high-performance web applications with modern technologies
-                    </p>
-                    <div className={styles.actions}>
-                        <Link href="#projects" className={styles.primaryBtn}>
-                            View Projects
-                        </Link>
-                        <Link href="#contact" className={styles.secondaryBtn}>
-                            Get in Touch
-                        </Link>
-                    </div>
+                    <Link href="#projects" className={styles.primaryBtn}>
+                        Latest Work
+                    </Link>
+                    <Link href="#contact" className={styles.secondaryBtn}>
+                        Contact Me
+                    </Link>
                 </motion.div>
             </div>
         </section>

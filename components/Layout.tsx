@@ -16,7 +16,7 @@ export default function Layout({ children }: LayoutProps) {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
             <SmoothScroll />
-            <ParticleField />
+            {/* <ParticleField /> */}
             <Navbar />
             <main>{children}</main>
         </>

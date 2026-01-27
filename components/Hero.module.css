@@ -6,98 +6,99 @@
     position: relative;
     padding: 2rem;
     z-index: 10;
+    overflow: hidden;
 }
 
 .content {
-    max-width: 800px;
+    max-width: 1000px;
     width: 100%;
     text-align: center;
+    z-index: 2;
+}
+
+.titleWrapper {
+    overflow: hidden;
+    margin-bottom: 2rem;
 }
 
 .title {
-    font-size: 4.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
-    background: linear-gradient(135deg, #ffffff, #a1a1aa);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--foreground);
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.gradientText {
+    background: linear-gradient(to right, var(--foreground), var(--secondary-foreground));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: -0.02em;
+}
+
+.subtitleWrapper {
+    overflow: hidden;
+    margin-bottom: 4rem;
 }
 
 .subtitle {
-    font-size: 1.25rem;
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
     color: var(--secondary-foreground);
-    margin-bottom: 3rem;
-    line-height: 1.6;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    line-height: 1.5;
+    font-weight: 400;
 }
 
 .actions {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
 }
 
 .primaryBtn,
 .secondaryBtn {
-    padding: 0.875rem 2rem;
-    border-radius: 8px;
-    font-weight: 600;
+    position: relative;
+    padding: 1rem 2.5rem;
     font-size: 1rem;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 100px;
+    overflow: hidden;
 }
 
 .primaryBtn {
-    background: var(--accent-primary);
-    color: white;
-    border: 2px solid var(--accent-primary);
+    background: var(--foreground);
+    color: var(--background);
+    border: 1px solid var(--foreground);
 }
 
 .primaryBtn:hover {
-    background: var(--accent-secondary);
-    border-color: var(--accent-secondary);
     transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 .secondaryBtn {
     background: transparent;
-    color: var(--foreground);
-    border: 2px solid var(--border-hover);
+    color: var(--secondary-foreground);
+    border: 1px solid var(--border);
 }
 
 .secondaryBtn:hover {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-    transform: translateY(-2px);
+    border-color: var(--foreground);
+    color: var(--foreground);
 }
 
 @media (max-width: 768px) {
-    .title {
-        font-size: 3rem;
-    }
-
-    .subtitle {
-        font-size: 1.125rem;
-    }
-
     .actions {
         flex-direction: column;
         width: 100%;
         max-width: 300px;
         margin: 0 auto;
-    }
-
-    .primaryBtn,
-    .secondaryBtn {
-        width: 100%;
     }
 }

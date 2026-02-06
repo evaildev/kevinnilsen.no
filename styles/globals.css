@@ -14,15 +14,14 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow: hidden;
   background-color: var(--win98-bg);
   color: var(--win98-text);
-  min-height: 100vh;
+  height: 100vh;
 }
 
-main {
-  min-height: 100vh;
-  padding: 16px;
+#__next {
+  height: 100vh;
 }
 
 a {
@@ -40,26 +39,29 @@ a:hover {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding: 4px;
+  padding: 8px;
   cursor: pointer;
   text-align: center;
-  max-width: 64px;
+  width: 80px;
+  border: 1px solid transparent;
+  user-select: none;
 }
 
 .desktop-icon:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 128, 0.3);
+  border: 1px dotted white;
 }
 
-.desktop-icon img {
-  width: 32px;
-  height: 32px;
-  image-rendering: pixelated;
+.desktop-icon:active {
+  background: rgba(0, 0, 128, 0.5);
 }
 
-.desktop-icon span {
+.desktop-icon span:last-child {
   color: white;
-  text-shadow: 1px 1px black;
+  text-shadow: 1px 1px 1px black, -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black;
   font-size: 11px;
+  line-height: 1.3;
+  word-break: break-word;
 }
 
 /* Custom scrollbar for Win98 look */
@@ -85,52 +87,43 @@ a:hover {
   border: 2px outset #ffffff;
   border-right-color: #808080;
   border-bottom-color: #808080;
-}
-
-/* Utility for window containers */
-.window-container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 16px;
-}
-
-/* Taskbar styling */
-.taskbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 28px;
-  background: #c0c0c0;
-  border-top: 2px solid #ffffff;
-  display: flex;
-  align-items: center;
-  padding: 2px;
-  z-index: 1000;
-}
-
-.start-button {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 6px;
-  font-weight: bold;
-  font-size: 11px;
-}
-
-.start-button img {
-  width: 16px;
+  display: block;
   height: 16px;
-  image-rendering: pixelated;
 }
 
-.taskbar-time {
-  margin-left: auto;
-  padding: 2px 8px;
-  border: 1px inset #808080;
-  font-size: 11px;
+/* Selection colors */
+::selection {
+  background: #000080;
+  color: #ffffff;
+}
+
+/* Status bar fix */
+.status-bar {
+  display: flex;
+  gap: 1px;
+}
+
+.status-bar-field {
   background: #c0c0c0;
+  border: 1px inset #ffffff;
+  padding: 2px 4px;
+  font-size: 11px;
+  flex: 1;
+}
+
+/* Tree view expand/collapse */
+details>summary {
+  list-style: none;
+}
+
+details>summary::-webkit-details-marker {
+  display: none;
+}
+
+details>summary::before {
+  content: '📁 ';
+}
+
+details[open]>summary::before {
+  content: '📂 ';
 }

@@ -17,43 +17,69 @@ export default function AboutContent() {
     ]
 
     return (
-        <div>
-            <div role="menubar" style={{ borderBottom: '1px solid #808080', marginBottom: '8px' }}>
-                <div role="menuitem" tabIndex={0} aria-haspopup="true" style={{ display: 'inline-block', padding: '2px 8px' }}>File</div>
-                <div role="menuitem" tabIndex={0} aria-haspopup="true" style={{ display: 'inline-block', padding: '2px 8px' }}>Edit</div>
-                <div role="menuitem" tabIndex={0} aria-haspopup="true" style={{ display: 'inline-block', padding: '2px 8px' }}>Help</div>
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <div role="menubar" style={{ borderBottom: '1px solid #808080', background: '#c0c0c0' }}>
+                <div role="menuitem" tabIndex={0} style={{ display: 'inline-block', padding: '2px 8px' }}>File</div>
+                <div role="menuitem" tabIndex={0} style={{ display: 'inline-block', padding: '2px 8px' }}>Edit</div>
+                <div role="menuitem" tabIndex={0} style={{ display: 'inline-block', padding: '2px 8px' }}>Format</div>
+                <div role="menuitem" tabIndex={0} style={{ display: 'inline-block', padding: '2px 8px' }}>Help</div>
             </div>
-            <div style={{ padding: '8px' }}>
-                <p style={{ lineHeight: '1.8', marginBottom: '16px' }}>
-                    I specialize in creating high-performance web applications
-                    with a focus on user experience and modern design.
-                </p>
-                <p style={{ lineHeight: '1.8', marginBottom: '16px' }}>
-                    With expertise across the full stack, I build solutions
-                    that are both technically robust and visually appealing.
-                </p>
+            <div style={{
+                flex: 1,
+                padding: '8px',
+                background: '#ffffff',
+                fontFamily: 'Courier New, monospace',
+                fontSize: '13px',
+                overflow: 'auto',
+                lineHeight: '1.6'
+            }}>
+                <pre style={{ whiteSpace: 'pre-wrap', margin: 0 }}>
+                    {`=====================================
+        KEVIN_NILSEN.TXT
+=====================================
 
-                <fieldset style={{ marginTop: '16px' }}>
-                    <legend>💾 Skills & Technologies</legend>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', padding: '8px' }}>
-                        {skills.map((skill) => (
-                            <span
-                                key={skill}
-                                style={{
-                                    padding: '2px 6px',
-                                    background: '#000080',
-                                    color: '#ffffff',
-                                    fontSize: '11px'
-                                }}
-                            >
-                                {skill}
-                            </span>
-                        ))}
-                    </div>
-                </fieldset>
+Hello, World!
+
+My name is Kevin Nilsen.
+I am a Full Stack Developer.
+
+Building immersive web experiences 
+with modern detail.
+
+-------------------------------------
+ABOUT ME
+-------------------------------------
+
+I specialize in creating high-performance 
+web applications with a focus on user 
+experience and modern design.
+
+With expertise across the full stack, 
+I build solutions that are both 
+technically robust and visually appealing.
+
+-------------------------------------
+SKILLS & TECHNOLOGIES
+-------------------------------------
+
+`}
+                    {skills.map((skill, i) => `  [${i + 1 < 10 ? '0' : ''}${i + 1}] ${skill}`).join('\n')}
+                    {`
+
+-------------------------------------
+CONTACT
+-------------------------------------
+
+Email: hello@kevinnilsen.no
+
+=====================================
+        EOF
+=====================================`}
+                </pre>
             </div>
-            <div className="status-bar" style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-                <p className="status-bar-field">Ready</p>
+            <div className="status-bar">
+                <p className="status-bar-field">kevin_nilsen.txt</p>
+                <p className="status-bar-field">100%</p>
                 <p className="status-bar-field">Ln 1, Col 1</p>
             </div>
         </div>

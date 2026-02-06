@@ -2,48 +2,111 @@
 import { useState } from 'react'
 
 export default function ContactContent() {
-    const [copied, setCopied] = useState(false)
-    const email = 'hello@kevinnilsen.no'
+    const [to, setTo] = useState('')
+    const [subject, setSubject] = useState('')
+    const [message, setMessage] = useState('')
+    const [sent, setSent] = useState(false)
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(email)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
+    const myEmail = 'hello@kevinnilsen.no'
+
+    const handleSend = () => {
+        const mailtoLink = `mailto:${myEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`
+        window.open(mailtoLink, '_blank')
+        setSent(true)
+        setTimeout(() => setSent(false), 3000)
     }
 
     return (
-        <div style={{ padding: '16px' }}>
-            <fieldset>
-                <legend>Get in Touch</legend>
-                <p style={{ marginBottom: '16px', lineHeight: '1.6' }}>
-                    I'm always interested in new projects and opportunities.
-                    Feel free to reach out if you'd like to work together.
-                </p>
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            {/* Toolbar */}
+            <div role="menubar" style={{ borderBottom: '1px solid #808080', background: '#c0c0c0' }}>
+                <div role="menuitem" tabIndex={0} style={{ display: 'inline-block', padding: '2px 8px' }}>File</div>
+                <div role="menuitem" tabIndex={0} style={{ display: 'inline-block', padding: '2px 8px' }}>Edit</div>
+                <div role="menuitem" tabIndex={0} style={{ display: 'inline-block', padding: '2px 8px' }}>View</div>
+                <div role="menuitem" tabIndex={0} style={{ display: 'inline-block', padding: '2px 8px' }}>Insert</div>
+                <div role="menuitem" tabIndex={0} style={{ display: 'inline-block', padding: '2px 8px' }}>Format</div>
+                <div role="menuitem" tabIndex={0} style={{ display: 'inline-block', padding: '2px 8px' }}>Tools</div>
+                <div role="menuitem" tabIndex={0} style={{ display: 'inline-block', padding: '2px 8px' }}>Help</div>
+            </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '16px', flexWrap: 'wrap' }}>
-                    <label htmlFor="email">Email:</label>
+            {/* Action buttons */}
+            <div style={{
+                padding: '4px 8px',
+                background: '#c0c0c0',
+                borderBottom: '1px solid #808080',
+                display: 'flex',
+                gap: '4px'
+            }}>
+                <button onClick={handleSend} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <span>📤</span> Send
+                </button>
+                <button style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <span>✂️</span> Cut
+                </button>
+                <button style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <span>📋</span> Copy
+                </button>
+                <button style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    <span>📎</span> Attach
+                </button>
+            </div>
+
+            {/* Email fields */}
+            <div style={{ background: '#c0c0c0', padding: '8px', borderBottom: '1px solid #808080' }}>
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
+                    <label style={{ width: '60px', fontWeight: 'bold' }}>To:</label>
                     <input
                         type="text"
-                        id="email"
-                        value={email}
+                        value={myEmail}
                         readOnly
-                        style={{ flex: 1, minWidth: '180px' }}
+                        style={{ flex: 1, background: '#e0e0e0' }}
                     />
-                    <button onClick={handleCopy}>
-                        {copied ? '✓ Copied!' : '📋 Copy'}
-                    </button>
                 </div>
-
-                <div style={{ marginTop: '16px', display: 'flex', gap: '8px' }}>
-                    <a href={`mailto:${email}`}>
-                        <button>✉️ New Email</button>
-                    </a>
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
+                    <label style={{ width: '60px', fontWeight: 'bold' }}>Cc:</label>
+                    <input
+                        type="text"
+                        value=""
+                        readOnly
+                        style={{ flex: 1 }}
+                    />
                 </div>
-            </fieldset>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <label style={{ width: '60px', fontWeight: 'bold' }}>Subject:</label>
+                    <input
+                        type="text"
+                        value={subject}
+                        onChange={(e) => setSubject(e.target.value)}
+                        placeholder="Enter subject..."
+                        style={{ flex: 1 }}
+                    />
+                </div>
+            </div>
 
-            <div className="status-bar" style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-                <p className="status-bar-field">1 contact(s)</p>
-                <p className="status-bar-field">Online</p>
+            {/* Message body */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Type your message here...
+
+I'm always interested in new projects and opportunities.
+Feel free to reach out if you'd like to work together!"
+                    style={{
+                        flex: 1,
+                        resize: 'none',
+                        padding: '8px',
+                        fontFamily: 'Arial, sans-serif',
+                        fontSize: '13px',
+                        border: '2px inset #808080'
+                    }}
+                />
+            </div>
+
+            {/* Status bar */}
+            <div className="status-bar">
+                <p className="status-bar-field">{sent ? '✓ Opening mail client...' : 'Ready'}</p>
+                <p className="status-bar-field">Characters: {message.length}</p>
             </div>
         </div>
     )

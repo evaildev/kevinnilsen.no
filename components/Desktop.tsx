@@ -2,10 +2,19 @@
 import { useState, useCallback } from 'react'
 import Window from './Window'
 import Taskbar from './Taskbar'
-import WelcomeContent from './windows/WelcomeContent'
 import AboutContent from './windows/AboutContent'
 import ProjectsContent from './windows/ProjectsContent'
 import ContactContent from './windows/ContactContent'
+
+// Windows 98 style icons (using common Win98 icon representations)
+const ICONS = {
+    notepad: '📝',
+    folder: '📁',
+    folderOpen: '📂',
+    mail: '✉️',
+    computer: '💻',
+    start: '🖥️'
+}
 
 interface WindowState {
     id: string
@@ -20,44 +29,34 @@ interface WindowState {
 
 const initialWindows: WindowState[] = [
     {
-        id: 'welcome',
-        title: 'Welcome.exe',
-        icon: '👋',
-        isOpen: true,
-        isMinimized: false,
-        zIndex: 4,
-        defaultPosition: { x: 80, y: 40 },
-        defaultSize: { width: 450, height: 350 }
-    },
-    {
-        id: 'projects',
-        title: 'My Projects - Explorer',
-        icon: '📁',
+        id: 'about',
+        title: 'kevin_nilsen.txt - Notepad',
+        icon: ICONS.notepad,
         isOpen: true,
         isMinimized: false,
         zIndex: 3,
-        defaultPosition: { x: 150, y: 100 },
-        defaultSize: { width: 550, height: 450 }
+        defaultPosition: { x: 80, y: 40 },
+        defaultSize: { width: 500, height: 450 }
     },
     {
-        id: 'about',
-        title: 'About Me - Notepad',
-        icon: '📝',
+        id: 'projects',
+        title: 'My Projects',
+        icon: ICONS.folder,
         isOpen: true,
         isMinimized: false,
         zIndex: 2,
-        defaultPosition: { x: 220, y: 160 },
-        defaultSize: { width: 500, height: 400 }
+        defaultPosition: { x: 180, y: 100 },
+        defaultSize: { width: 550, height: 450 }
     },
     {
         id: 'contact',
-        title: 'Contact - Outlook Express',
-        icon: '📧',
+        title: 'New Message',
+        icon: ICONS.mail,
         isOpen: true,
         isMinimized: false,
         zIndex: 1,
-        defaultPosition: { x: 290, y: 220 },
-        defaultSize: { width: 450, height: 380 }
+        defaultPosition: { x: 280, y: 160 },
+        defaultSize: { width: 500, height: 420 }
     }
 ]
 
@@ -93,8 +92,6 @@ export default function Desktop() {
 
     const renderWindowContent = (id: string) => {
         switch (id) {
-            case 'welcome':
-                return <WelcomeContent onOpenProjects={() => focusWindow('projects')} onOpenContact={() => focusWindow('contact')} />
             case 'about':
                 return <AboutContent />
             case 'projects':
@@ -109,7 +106,7 @@ export default function Desktop() {
     return (
         <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
             {/* Desktop Icons */}
-            <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {windows.map(w => (
                     <div
                         key={w.id}
@@ -118,9 +115,15 @@ export default function Desktop() {
                         style={{ cursor: 'pointer' }}
                     >
                         <span style={{ fontSize: '32px' }}>{w.icon}</span>
-                        <span>{w.title.split(' - ')[0].replace('.exe', '')}</span>
+                        <span>{w.title.split(' - ')[0]}</span>
                     </div>
                 ))}
+
+                {/* My Computer icon */}
+                <div className="desktop-icon" style={{ cursor: 'pointer' }}>
+                    <span style={{ fontSize: '32px' }}>{ICONS.computer}</span>
+                    <span>My Computer</span>
+                </div>
             </div>
 
             {/* Windows */}

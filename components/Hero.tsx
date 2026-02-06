@@ -1,50 +1,34 @@
 'use client'
-import styles from './Hero.module.css'
-import Link from 'next/link'
-import { motion } from 'framer-motion'
 
 export default function Hero() {
     return (
-        <section className={styles.hero}>
-            <div className={styles.content}>
-                <div className={styles.titleWrapper}>
-                    <motion.h1
-                        className={styles.title}
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                    >
-                        Creative
-                        <br />
-                        <span className={styles.gradientText}>Developer</span>
-                    </motion.h1>
+        <div className="window" style={{ margin: '16px auto', maxWidth: '600px' }}>
+            <div className="title-bar">
+                <div className="title-bar-text">Welcome.exe</div>
+                <div className="title-bar-controls">
+                    <button aria-label="Minimize"></button>
+                    <button aria-label="Maximize"></button>
+                    <button aria-label="Close"></button>
                 </div>
-
-                <div className={styles.subtitleWrapper}>
-                    <motion.p
-                        className={styles.subtitle}
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-                    >
-                        Kevin Nilsen — Full Stack Developer building immersive web experiences with modern detail.
-                    </motion.p>
-                </div>
-
-                <motion.div
-                    className={styles.actions}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.6 }}
-                >
-                    <Link href="#projects" className={styles.primaryBtn}>
-                        Latest Work
-                    </Link>
-                    <Link href="#contact" className={styles.secondaryBtn}>
-                        Contact Me
-                    </Link>
-                </motion.div>
             </div>
-        </section>
+            <div className="window-body">
+                <div style={{ textAlign: 'center', padding: '24px' }}>
+                    <h1 style={{ fontSize: '24px', marginBottom: '16px' }}>👋 Hello, World!</h1>
+                    <p style={{ fontSize: '16px', marginBottom: '8px' }}>
+                        <strong>Kevin Nilsen</strong>
+                    </p>
+                    <p style={{ marginBottom: '16px', color: '#0000aa' }}>
+                        Full Stack Developer
+                    </p>
+                    <p style={{ marginBottom: '24px', lineHeight: '1.6' }}>
+                        Building immersive web experiences with modern detail.
+                    </p>
+                    <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+                        <a href="#projects"><button>📁 View Projects</button></a>
+                        <a href="#contact"><button>📧 Contact Me</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }

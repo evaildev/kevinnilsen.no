@@ -1,14 +1,117 @@
 'use client'
 import { useState } from 'react'
 
+export interface Theme {
+    name: string
+    windowBg: string
+    windowBorder: string
+    titleBarBg: string
+    titleBarText: string
+    buttonFace: string
+    buttonHighlight: string
+    buttonShadow: string
+    windowText: string
+    highlightBg: string
+    highlightText: string
+}
+
+export const themes: Theme[] = [
+    {
+        name: 'Windows Standard',
+        windowBg: '#c0c0c0',
+        windowBorder: '#808080',
+        titleBarBg: '#000080',
+        titleBarText: '#ffffff',
+        buttonFace: '#c0c0c0',
+        buttonHighlight: '#ffffff',
+        buttonShadow: '#808080',
+        windowText: '#000000',
+        highlightBg: '#000080',
+        highlightText: '#ffffff'
+    },
+    {
+        name: 'High Contrast Black',
+        windowBg: '#000000',
+        windowBorder: '#ffffff',
+        titleBarBg: '#800080',
+        titleBarText: '#ffffff',
+        buttonFace: '#000000',
+        buttonHighlight: '#ffffff',
+        buttonShadow: '#808080',
+        windowText: '#ffffff',
+        highlightBg: '#800080',
+        highlightText: '#ffffff'
+    },
+    {
+        name: 'Maple',
+        windowBg: '#d4c5a9',
+        windowBorder: '#8b7355',
+        titleBarBg: '#8b4513',
+        titleBarText: '#ffffff',
+        buttonFace: '#d4c5a9',
+        buttonHighlight: '#f5f5dc',
+        buttonShadow: '#8b7355',
+        windowText: '#000000',
+        highlightBg: '#8b4513',
+        highlightText: '#ffffff'
+    },
+    {
+        name: 'Plum',
+        windowBg: '#c9b8cd',
+        windowBorder: '#6b4c6e',
+        titleBarBg: '#4a0e4e',
+        titleBarText: '#ffffff',
+        buttonFace: '#c9b8cd',
+        buttonHighlight: '#e8d8eb',
+        buttonShadow: '#6b4c6e',
+        windowText: '#000000',
+        highlightBg: '#4a0e4e',
+        highlightText: '#ffffff'
+    },
+    {
+        name: 'Rainy Day',
+        windowBg: '#b8c8d8',
+        windowBorder: '#5a6a7a',
+        titleBarBg: '#2c3e50',
+        titleBarText: '#ffffff',
+        buttonFace: '#b8c8d8',
+        buttonHighlight: '#d8e8f8',
+        buttonShadow: '#5a6a7a',
+        windowText: '#000000',
+        highlightBg: '#2c3e50',
+        highlightText: '#ffffff'
+    },
+    {
+        name: 'Rose',
+        windowBg: '#e8c8d0',
+        windowBorder: '#a05a6e',
+        titleBarBg: '#8b0040',
+        titleBarText: '#ffffff',
+        buttonFace: '#e8c8d0',
+        buttonHighlight: '#ffd8e8',
+        buttonShadow: '#a05a6e',
+        windowText: '#000000',
+        highlightBg: '#8b0040',
+        highlightText: '#ffffff'
+    }
+]
+
 interface SettingsContentProps {
     onChangeWallpaper: (color: string) => void
     currentWallpaper: string
+    onChangeTheme: (theme: Theme) => void
+    currentTheme: Theme
 }
 
-export default function SettingsContent({ onChangeWallpaper, currentWallpaper }: SettingsContentProps) {
+export default function SettingsContent({
+    onChangeWallpaper,
+    currentWallpaper,
+    onChangeTheme,
+    currentTheme
+}: SettingsContentProps) {
     const [selectedTab, setSelectedTab] = useState<'background' | 'appearance'>('background')
     const [selectedColor, setSelectedColor] = useState(currentWallpaper)
+    const [selectedTheme, setSelectedTheme] = useState(currentTheme)
 
     const wallpapers = [
         { name: 'Teal (Default)', color: '#008080' },
@@ -23,19 +126,25 @@ export default function SettingsContent({ onChangeWallpaper, currentWallpaper }:
 
     const handleApply = () => {
         onChangeWallpaper(selectedColor)
+        onChangeTheme(selectedTheme)
     }
 
     return (
-        <div style={{ height: '100%', display: 'flex', flexDirection: 'column', fontFamily: 'MS Sans Serif, Tahoma, sans-serif', fontSize: '11px' }}>
+        <div style={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            fontFamily: 'MS Sans Serif, Tahoma, sans-serif',
+            fontSize: '11px'
+        }}>
             {/* Tabs */}
             <div style={{ display: 'flex', padding: '8px 8px 0 8px', gap: '2px' }}>
                 <button
                     onClick={() => setSelectedTab('background')}
                     style={{
                         padding: '4px 12px',
-                        border: selectedTab === 'background' ? '2px outset' : '1px solid #808080',
                         borderBottom: selectedTab === 'background' ? 'none' : undefined,
-                        background: selectedTab === 'background' ? '#c0c0c0' : '#a0a0a0',
+                        background: selectedTab === 'background' ? currentTheme.windowBg : currentTheme.buttonShadow,
                         marginBottom: selectedTab === 'background' ? '-1px' : '0',
                         zIndex: selectedTab === 'background' ? 1 : 0
                     }}
@@ -46,9 +155,8 @@ export default function SettingsContent({ onChangeWallpaper, currentWallpaper }:
                     onClick={() => setSelectedTab('appearance')}
                     style={{
                         padding: '4px 12px',
-                        border: selectedTab === 'appearance' ? '2px outset' : '1px solid #808080',
                         borderBottom: selectedTab === 'appearance' ? 'none' : undefined,
-                        background: selectedTab === 'appearance' ? '#c0c0c0' : '#a0a0a0',
+                        background: selectedTab === 'appearance' ? currentTheme.windowBg : currentTheme.buttonShadow,
                         marginBottom: selectedTab === 'appearance' ? '-1px' : '0',
                         zIndex: selectedTab === 'appearance' ? 1 : 0
                     }}
@@ -63,7 +171,6 @@ export default function SettingsContent({ onChangeWallpaper, currentWallpaper }:
                 margin: '0 8px 8px 8px',
                 padding: '16px',
                 border: '2px inset',
-                background: '#c0c0c0',
                 overflow: 'auto'
             }}>
                 {selectedTab === 'background' && (
@@ -83,11 +190,16 @@ export default function SettingsContent({ onChangeWallpaper, currentWallpaper }:
                                     position: 'absolute',
                                     top: '10px',
                                     left: '10px',
-                                    width: '30px',
-                                    height: '25px',
-                                    background: '#c0c0c0',
-                                    border: '1px outset'
-                                }} />
+                                    width: '40px',
+                                    height: '30px',
+                                    background: selectedTheme.windowBg,
+                                    border: '1px solid ' + selectedTheme.windowBorder
+                                }}>
+                                    <div style={{
+                                        height: '10px',
+                                        background: selectedTheme.titleBarBg
+                                    }} />
+                                </div>
                             </div>
                         </fieldset>
 
@@ -95,7 +207,7 @@ export default function SettingsContent({ onChangeWallpaper, currentWallpaper }:
                         <fieldset>
                             <legend>Wallpaper</legend>
                             <div style={{
-                                height: '120px',
+                                height: '100px',
                                 overflow: 'auto',
                                 background: '#ffffff',
                                 border: '2px inset',
@@ -108,8 +220,8 @@ export default function SettingsContent({ onChangeWallpaper, currentWallpaper }:
                                         style={{
                                             padding: '2px 4px',
                                             cursor: 'pointer',
-                                            background: selectedColor === wp.color ? '#000080' : 'transparent',
-                                            color: selectedColor === wp.color ? '#ffffff' : '#000000',
+                                            background: selectedColor === wp.color ? currentTheme.highlightBg : 'transparent',
+                                            color: selectedColor === wp.color ? currentTheme.highlightText : currentTheme.windowText,
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: '8px'
@@ -131,19 +243,79 @@ export default function SettingsContent({ onChangeWallpaper, currentWallpaper }:
 
                 {selectedTab === 'appearance' && (
                     <div>
+                        {/* Theme Preview */}
+                        <fieldset style={{ marginBottom: '16px' }}>
+                            <legend>Preview</legend>
+                            <div style={{
+                                padding: '16px',
+                                background: '#808080',
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}>
+                                <div style={{
+                                    width: '140px',
+                                    background: selectedTheme.windowBg,
+                                    border: `2px solid ${selectedTheme.windowBorder}`,
+                                    boxShadow: `inset 1px 1px 0 ${selectedTheme.buttonHighlight}`
+                                }}>
+                                    <div style={{
+                                        background: selectedTheme.titleBarBg,
+                                        color: selectedTheme.titleBarText,
+                                        padding: '2px 4px',
+                                        fontSize: '10px',
+                                        fontWeight: 'bold'
+                                    }}>
+                                        Active Window
+                                    </div>
+                                    <div style={{ padding: '8px', color: selectedTheme.windowText }}>
+                                        <p style={{ fontSize: '10px', marginBottom: '8px' }}>Window text</p>
+                                        <button style={{
+                                            fontSize: '10px',
+                                            background: selectedTheme.buttonFace,
+                                            border: `1px outset ${selectedTheme.buttonHighlight}`
+                                        }}>
+                                            OK
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        {/* Scheme selector */}
                         <fieldset>
                             <legend>Scheme</legend>
-                            <select style={{ width: '100%', padding: '2px' }}>
-                                <option>Windows Standard</option>
-                                <option>High Contrast Black</option>
-                                <option>High Contrast White</option>
-                                <option>Maple</option>
-                                <option>Plum</option>
-                            </select>
+                            <div style={{
+                                height: '100px',
+                                overflow: 'auto',
+                                background: '#ffffff',
+                                border: '2px inset',
+                                padding: '2px'
+                            }}>
+                                {themes.map(theme => (
+                                    <div
+                                        key={theme.name}
+                                        onClick={() => setSelectedTheme(theme)}
+                                        style={{
+                                            padding: '2px 4px',
+                                            cursor: 'pointer',
+                                            background: selectedTheme.name === theme.name ? currentTheme.highlightBg : 'transparent',
+                                            color: selectedTheme.name === theme.name ? currentTheme.highlightText : '#000000',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px'
+                                        }}
+                                    >
+                                        <div style={{
+                                            width: '16px',
+                                            height: '16px',
+                                            background: theme.titleBarBg,
+                                            border: '1px solid #808080'
+                                        }} />
+                                        {theme.name}
+                                    </div>
+                                ))}
+                            </div>
                         </fieldset>
-                        <p style={{ marginTop: '16px', color: '#808080' }}>
-                            Note: Theme changes are not yet implemented.
-                        </p>
                     </div>
                 )}
             </div>

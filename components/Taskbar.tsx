@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { Theme } from './windows/SettingsContent'
 
 interface WindowInfo {
     id: string
@@ -13,9 +14,10 @@ interface TaskbarProps {
     windows: WindowInfo[]
     onWindowClick: (id: string) => void
     onOpenSettings: () => void
+    theme: Theme
 }
 
-export default function Taskbar({ windows, onWindowClick, onOpenSettings }: TaskbarProps) {
+export default function Taskbar({ windows, onWindowClick, onOpenSettings, theme }: TaskbarProps) {
     const [time, setTime] = useState('')
     const [showStartMenu, setShowStartMenu] = useState(false)
 
@@ -43,13 +45,14 @@ export default function Taskbar({ windows, onWindowClick, onOpenSettings }: Task
                         left: '2px',
                         width: '180px',
                         zIndex: 10000,
-                        padding: 0
+                        padding: 0,
+                        background: theme.windowBg
                     }}
                 >
                     <div style={{ display: 'flex', position: 'relative' }}>
                         {/* Kevin98 branding sidebar */}
                         <div style={{
-                            background: 'linear-gradient(to bottom, #000080, #1084d0)',
+                            background: `linear-gradient(to bottom, ${theme.titleBarBg}, #1084d0)`,
                             padding: '8px 4px',
                             writingMode: 'vertical-rl',
                             transform: 'rotate(180deg)',
@@ -66,7 +69,7 @@ export default function Taskbar({ windows, onWindowClick, onOpenSettings }: Task
                         </div>
 
                         {/* Menu items */}
-                        <div style={{ flex: 1, background: '#c0c0c0', fontSize: '11px' }}>
+                        <div style={{ flex: 1, background: theme.windowBg, fontSize: '11px' }}>
                             <div style={{ padding: '4px 0' }}>
                                 {/* App shortcuts - excluding settings */}
                                 {windows.filter(w => w.id !== 'settings').map(w => (
@@ -77,21 +80,28 @@ export default function Taskbar({ windows, onWindowClick, onOpenSettings }: Task
                                             cursor: 'pointer',
                                             display: 'flex',
                                             alignItems: 'center',
-                                            gap: '8px'
+                                            gap: '8px',
+                                            color: theme.windowText
                                         }}
                                         onClick={() => {
                                             onWindowClick(w.id)
                                             setShowStartMenu(false)
                                         }}
-                                        onMouseEnter={(e) => { e.currentTarget.style.background = '#000080'; e.currentTarget.style.color = '#ffffff' }}
-                                        onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '' }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.background = theme.highlightBg
+                                            e.currentTarget.style.color = theme.highlightText
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.background = ''
+                                            e.currentTarget.style.color = theme.windowText
+                                        }}
                                     >
                                         <span>{w.icon}</span>
                                         <span>{w.id === 'contact' ? 'E-mail' : w.title.split(' - ')[0]}</span>
                                     </div>
                                 ))}
 
-                                <hr style={{ margin: '4px 8px', border: 'none', borderTop: '1px solid #808080', borderBottom: '1px solid #ffffff' }} />
+                                <hr style={{ margin: '4px 8px', border: 'none', borderTop: `1px solid ${theme.buttonShadow}`, borderBottom: `1px solid ${theme.buttonHighlight}` }} />
 
                                 {/* Settings */}
                                 <div
@@ -100,20 +110,27 @@ export default function Taskbar({ windows, onWindowClick, onOpenSettings }: Task
                                         cursor: 'pointer',
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: '8px'
+                                        gap: '8px',
+                                        color: theme.windowText
                                     }}
                                     onClick={() => {
                                         onOpenSettings()
                                         setShowStartMenu(false)
                                     }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.background = '#000080'; e.currentTarget.style.color = '#ffffff' }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '' }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.background = theme.highlightBg
+                                        e.currentTarget.style.color = theme.highlightText
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.background = ''
+                                        e.currentTarget.style.color = theme.windowText
+                                    }}
                                 >
                                     <span>⚙️</span>
                                     <span>Settings</span>
                                 </div>
 
-                                <hr style={{ margin: '4px 8px', border: 'none', borderTop: '1px solid #808080', borderBottom: '1px solid #ffffff' }} />
+                                <hr style={{ margin: '4px 8px', border: 'none', borderTop: `1px solid ${theme.buttonShadow}`, borderBottom: `1px solid ${theme.buttonHighlight}` }} />
 
                                 {/* Shut Down */}
                                 <div
@@ -122,10 +139,17 @@ export default function Taskbar({ windows, onWindowClick, onOpenSettings }: Task
                                         cursor: 'pointer',
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: '8px'
+                                        gap: '8px',
+                                        color: theme.windowText
                                     }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.background = '#000080'; e.currentTarget.style.color = '#ffffff' }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '' }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.background = theme.highlightBg
+                                        e.currentTarget.style.color = theme.highlightText
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.background = ''
+                                        e.currentTarget.style.color = theme.windowText
+                                    }}
                                 >
                                     <span>🔌</span>
                                     <span>Shut Down...</span>
@@ -143,8 +167,8 @@ export default function Taskbar({ windows, onWindowClick, onOpenSettings }: Task
                 left: 0,
                 right: 0,
                 height: '30px',
-                background: '#c0c0c0',
-                borderTop: '2px solid #dfdfdf',
+                background: theme.windowBg,
+                borderTop: `2px solid ${theme.buttonHighlight}`,
                 display: 'flex',
                 alignItems: 'center',
                 padding: '2px',
@@ -162,7 +186,9 @@ export default function Taskbar({ windows, onWindowClick, onOpenSettings }: Task
                         fontSize: '11px',
                         padding: '2px 6px',
                         height: '24px',
-                        border: showStartMenu ? '2px inset' : undefined
+                        border: showStartMenu ? '2px inset' : undefined,
+                        background: theme.buttonFace,
+                        color: theme.windowText
                     }}
                 >
                     <svg width="16" height="16" viewBox="0 0 16 16" style={{ imageRendering: 'pixelated' }}>
@@ -178,10 +204,10 @@ export default function Taskbar({ windows, onWindowClick, onOpenSettings }: Task
                 <div style={{
                     height: '22px',
                     width: '2px',
-                    background: '#808080',
+                    background: theme.buttonShadow,
                     marginLeft: '2px',
                     marginRight: '2px',
-                    borderRight: '1px solid #ffffff'
+                    borderRight: `1px solid ${theme.buttonHighlight}`
                 }} />
 
                 {/* Open windows */}
@@ -203,7 +229,9 @@ export default function Taskbar({ windows, onWindowClick, onOpenSettings }: Task
                                 whiteSpace: 'nowrap',
                                 fontSize: '11px',
                                 fontWeight: w.isMinimized ? 'normal' : 'bold',
-                                border: w.isMinimized ? undefined : '2px inset'
+                                border: w.isMinimized ? undefined : '2px inset',
+                                background: theme.buttonFace,
+                                color: theme.windowText
                             }}
                         >
                             <span style={{ flexShrink: 0 }}>{w.icon}</span>
@@ -218,10 +246,10 @@ export default function Taskbar({ windows, onWindowClick, onOpenSettings }: Task
                 <div style={{
                     height: '22px',
                     width: '2px',
-                    background: '#808080',
+                    background: theme.buttonShadow,
                     marginLeft: '2px',
                     marginRight: '2px',
-                    borderRight: '1px solid #ffffff'
+                    borderRight: `1px solid ${theme.buttonHighlight}`
                 }} />
 
                 {/* System tray */}
@@ -231,9 +259,10 @@ export default function Taskbar({ windows, onWindowClick, onOpenSettings }: Task
                     gap: '6px',
                     padding: '2px 8px',
                     height: '24px',
-                    border: '1px inset #808080',
+                    border: `1px inset ${theme.buttonShadow}`,
                     fontSize: '11px',
-                    background: '#c0c0c0'
+                    background: theme.windowBg,
+                    color: theme.windowText
                 }}>
                     <span style={{ fontSize: '12px' }}>🔊</span>
                     <span>{time}</span>

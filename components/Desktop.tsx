@@ -5,16 +5,7 @@ import Taskbar from './Taskbar'
 import AboutContent from './windows/AboutContent'
 import ProjectsContent from './windows/ProjectsContent'
 import ContactContent from './windows/ContactContent'
-
-// Windows 98 style icons (using common Win98 icon representations)
-const ICONS = {
-    notepad: '📝',
-    folder: '📁',
-    folderOpen: '📂',
-    mail: '✉️',
-    computer: '💻',
-    start: '🖥️'
-}
+import SettingsContent from './windows/SettingsContent'
 
 interface WindowState {
     id: string
@@ -31,7 +22,7 @@ const initialWindows: WindowState[] = [
     {
         id: 'about',
         title: 'kevin_nilsen.txt - Notepad',
-        icon: ICONS.notepad,
+        icon: '📝',
         isOpen: true,
         isMinimized: false,
         zIndex: 3,
@@ -41,28 +32,39 @@ const initialWindows: WindowState[] = [
     {
         id: 'projects',
         title: 'My Projects',
-        icon: ICONS.folder,
+        icon: '📁',
         isOpen: true,
         isMinimized: false,
         zIndex: 2,
         defaultPosition: { x: 180, y: 100 },
-        defaultSize: { width: 550, height: 450 }
+        defaultSize: { width: 500, height: 400 }
     },
     {
         id: 'contact',
         title: 'New Message',
-        icon: ICONS.mail,
+        icon: '📧',
         isOpen: true,
         isMinimized: false,
         zIndex: 1,
         defaultPosition: { x: 280, y: 160 },
-        defaultSize: { width: 500, height: 420 }
+        defaultSize: { width: 450, height: 380 }
+    },
+    {
+        id: 'settings',
+        title: 'Display Properties',
+        icon: '🖥️',
+        isOpen: false,
+        isMinimized: false,
+        zIndex: 0,
+        defaultPosition: { x: 150, y: 80 },
+        defaultSize: { width: 400, height: 420 }
     }
 ]
 
 export default function Desktop() {
     const [windows, setWindows] = useState<WindowState[]>(initialWindows)
     const [maxZIndex, setMaxZIndex] = useState(5)
+    const [wallpaperColor, setWallpaperColor] = useState('#008080')
 
     const focusWindow = useCallback((id: string) => {
         setMaxZIndex(prev => prev + 1)
@@ -90,6 +92,10 @@ export default function Desktop() {
         ))
     }, [maxZIndex])
 
+    const handleChangeWallpaper = (color: string) => {
+        setWallpaperColor(color)
+    }
+
     const renderWindowContent = (id: string) => {
         switch (id) {
             case 'about':
@@ -98,16 +104,27 @@ export default function Desktop() {
                 return <ProjectsContent />
             case 'contact':
                 return <ContactContent />
+            case 'settings':
+                return <SettingsContent onChangeWallpaper={handleChangeWallpaper} currentWallpaper={wallpaperColor} />
             default:
                 return null
         }
     }
 
+    // Desktop icons (excluding settings - only accessible via Start menu)
+    const desktopWindows = windows.filter(w => w.id !== 'settings')
+
     return (
-        <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
+        <div style={{
+            width: '100vw',
+            height: '100vh',
+            overflow: 'hidden',
+            position: 'relative',
+            background: wallpaperColor
+        }}>
             {/* Desktop Icons */}
             <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                {windows.map(w => (
+                {desktopWindows.map(w => (
                     <div
                         key={w.id}
                         className="desktop-icon"
@@ -115,15 +132,11 @@ export default function Desktop() {
                         style={{ cursor: 'pointer' }}
                     >
                         <span style={{ fontSize: '32px' }}>{w.icon}</span>
-                        <span>{w.title.split(' - ')[0]}</span>
+                        <span>
+                            {w.id === 'contact' ? 'E-mail' : w.title.split(' - ')[0]}
+                        </span>
                     </div>
                 ))}
-
-                {/* My Computer icon */}
-                <div className="desktop-icon" style={{ cursor: 'pointer' }}>
-                    <span style={{ fontSize: '32px' }}>{ICONS.computer}</span>
-                    <span>My Computer</span>
-                </div>
             </div>
 
             {/* Windows */}
@@ -150,6 +163,7 @@ export default function Desktop() {
             <Taskbar
                 windows={windows}
                 onWindowClick={focusWindow}
+                onOpenSettings={() => openWindow('settings')}
             />
         </div>
     )

@@ -12,9 +12,10 @@ interface WindowInfo {
 interface TaskbarProps {
     windows: WindowInfo[]
     onWindowClick: (id: string) => void
+    onOpenSettings: () => void
 }
 
-export default function Taskbar({ windows, onWindowClick }: TaskbarProps) {
+export default function Taskbar({ windows, onWindowClick, onOpenSettings }: TaskbarProps) {
     const [time, setTime] = useState('')
     const [showStartMenu, setShowStartMenu] = useState(false)
 
@@ -40,16 +41,13 @@ export default function Taskbar({ windows, onWindowClick }: TaskbarProps) {
                         position: 'fixed',
                         bottom: '30px',
                         left: '2px',
-                        width: '200px',
+                        width: '180px',
                         zIndex: 10000,
                         padding: 0
                     }}
                 >
-                    {/* Kevin98 branding sidebar */}
-                    <div style={{
-                        display: 'flex',
-                        position: 'relative'
-                    }}>
+                    <div style={{ display: 'flex', position: 'relative' }}>
+                        {/* Kevin98 branding sidebar */}
                         <div style={{
                             background: 'linear-gradient(to bottom, #000080, #1084d0)',
                             padding: '8px 4px',
@@ -57,7 +55,7 @@ export default function Taskbar({ windows, onWindowClick }: TaskbarProps) {
                             transform: 'rotate(180deg)',
                             color: '#c0c0c0',
                             fontWeight: 'bold',
-                            fontSize: '20px',
+                            fontSize: '18px',
                             letterSpacing: '1px',
                             display: 'flex',
                             alignItems: 'center',
@@ -68,46 +66,10 @@ export default function Taskbar({ windows, onWindowClick }: TaskbarProps) {
                         </div>
 
                         {/* Menu items */}
-                        <div style={{ flex: 1, background: '#c0c0c0' }}>
+                        <div style={{ flex: 1, background: '#c0c0c0', fontSize: '11px' }}>
                             <div style={{ padding: '4px 0' }}>
-                                {/* Programs */}
-                                <div
-                                    style={{
-                                        padding: '4px 8px',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '8px'
-                                    }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.background = '#000080'; e.currentTarget.style.color = '#ffffff' }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '' }}
-                                >
-                                    <span>📁</span>
-                                    <span>Programs</span>
-                                    <span style={{ marginLeft: 'auto' }}>▶</span>
-                                </div>
-
-                                {/* Documents */}
-                                <div
-                                    style={{
-                                        padding: '4px 8px',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '8px'
-                                    }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.background = '#000080'; e.currentTarget.style.color = '#ffffff' }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '' }}
-                                >
-                                    <span>📄</span>
-                                    <span>Documents</span>
-                                    <span style={{ marginLeft: 'auto' }}>▶</span>
-                                </div>
-
-                                <hr style={{ margin: '4px 8px', border: 'none', borderTop: '1px solid #808080', borderBottom: '1px solid #ffffff' }} />
-
-                                {/* App shortcuts */}
-                                {windows.map(w => (
+                                {/* App shortcuts - excluding settings */}
+                                {windows.filter(w => w.id !== 'settings').map(w => (
                                     <div
                                         key={w.id}
                                         style={{
@@ -125,7 +87,7 @@ export default function Taskbar({ windows, onWindowClick }: TaskbarProps) {
                                         onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '' }}
                                     >
                                         <span>{w.icon}</span>
-                                        <span>{w.title.split(' - ')[0]}</span>
+                                        <span>{w.id === 'contact' ? 'E-mail' : w.title.split(' - ')[0]}</span>
                                     </div>
                                 ))}
 
@@ -140,61 +102,15 @@ export default function Taskbar({ windows, onWindowClick }: TaskbarProps) {
                                         alignItems: 'center',
                                         gap: '8px'
                                     }}
+                                    onClick={() => {
+                                        onOpenSettings()
+                                        setShowStartMenu(false)
+                                    }}
                                     onMouseEnter={(e) => { e.currentTarget.style.background = '#000080'; e.currentTarget.style.color = '#ffffff' }}
                                     onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '' }}
                                 >
                                     <span>⚙️</span>
                                     <span>Settings</span>
-                                    <span style={{ marginLeft: 'auto' }}>▶</span>
-                                </div>
-
-                                {/* Find */}
-                                <div
-                                    style={{
-                                        padding: '4px 8px',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '8px'
-                                    }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.background = '#000080'; e.currentTarget.style.color = '#ffffff' }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '' }}
-                                >
-                                    <span>🔍</span>
-                                    <span>Find</span>
-                                    <span style={{ marginLeft: 'auto' }}>▶</span>
-                                </div>
-
-                                {/* Help */}
-                                <div
-                                    style={{
-                                        padding: '4px 8px',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '8px'
-                                    }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.background = '#000080'; e.currentTarget.style.color = '#ffffff' }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '' }}
-                                >
-                                    <span>❓</span>
-                                    <span>Help</span>
-                                </div>
-
-                                {/* Run */}
-                                <div
-                                    style={{
-                                        padding: '4px 8px',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '8px'
-                                    }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.background = '#000080'; e.currentTarget.style.color = '#ffffff' }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.background = ''; e.currentTarget.style.color = '' }}
-                                >
-                                    <span>▶️</span>
-                                    <span>Run...</span>
                                 </div>
 
                                 <hr style={{ margin: '4px 8px', border: 'none', borderTop: '1px solid #808080', borderBottom: '1px solid #ffffff' }} />
@@ -258,7 +174,7 @@ export default function Taskbar({ windows, onWindowClick }: TaskbarProps) {
                     <span>Start</span>
                 </button>
 
-                {/* Quick Launch separator */}
+                {/* Separator */}
                 <div style={{
                     height: '22px',
                     width: '2px',
@@ -280,8 +196,8 @@ export default function Taskbar({ windows, onWindowClick }: TaskbarProps) {
                                 gap: '4px',
                                 padding: '2px 8px',
                                 height: '24px',
-                                minWidth: '140px',
-                                maxWidth: '180px',
+                                minWidth: '120px',
+                                maxWidth: '160px',
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
@@ -292,13 +208,13 @@ export default function Taskbar({ windows, onWindowClick }: TaskbarProps) {
                         >
                             <span style={{ flexShrink: 0 }}>{w.icon}</span>
                             <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                {w.title.split(' - ')[0]}
+                                {w.id === 'contact' ? 'New Message' : w.title.split(' - ')[0]}
                             </span>
                         </button>
                     ))}
                 </div>
 
-                {/* System Tray separator */}
+                {/* Separator */}
                 <div style={{
                     height: '22px',
                     width: '2px',
@@ -320,8 +236,7 @@ export default function Taskbar({ windows, onWindowClick }: TaskbarProps) {
                     background: '#c0c0c0'
                 }}>
                     <span style={{ fontSize: '12px' }}>🔊</span>
-                    <span style={{ fontSize: '12px' }}>🌐</span>
-                    <span style={{ fontFamily: 'Segoe UI, Tahoma, sans-serif' }}>{time}</span>
+                    <span>{time}</span>
                 </div>
             </div>
 
